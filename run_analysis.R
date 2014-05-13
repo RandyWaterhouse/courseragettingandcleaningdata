@@ -65,13 +65,6 @@ allData <- rbind(trainData,testData)
 coreData <- allData[,grep("subject|activity|.*mean.*|.*Mean.*|.*std.*|.*Std.",names(allData))]
 
 
-## convert variables names to more descriptive names:
-#coreNames <- names(coreData)
-#coreNames <- gsub("Acc","Acceleration",coreNames)
-#coreNames <- gsub("fBody","frequencyBody",coreNames)
-#coreNames <- gsub("Gyro","Gyroscope",coreNames)
-#coreNames <- gsub("std","standardDeviation",coreNames)
-
 coreNames <- c("subject","activity",
                "timeDomainBodyAccelerationMeanX","timeDomainBodyAccelerationMeanY",
                "timeDomainBodyAccelerationMeanZ","timeDomainBodyAccelerationStandardDeviationX",
@@ -125,4 +118,4 @@ dt <- data.table(coreData)
 coreAverages <- dt[,lapply(.SD,mean),by=list(subject,activity)]
 
 ## write averages to separate file:
-write.csv(coreAverages,)
+write.csv(coreAverages,file="tidy-data-averages.csv",row.names=FALSE)
